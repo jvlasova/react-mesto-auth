@@ -1,7 +1,7 @@
 .profile {
   font-family: Inter, Arial, sans-serif;
   max-width: 880px;
-  margin: 0 auto;
+  margin: 40px auto 0;
   display: grid;
   grid-template-columns: 150px minmax(336px, 1fr) 150px;
   align-items: center;
@@ -18,7 +18,7 @@
   .profile {
     max-width: 730px;
     grid-template-columns: 120px minmax(189px, 1fr) 150px;
-    margin: 0 19px;
+    margin: 40px 19px 0;
   }
 }
 
@@ -26,6 +26,6 @@
   .profile {
     max-width: 282px;
     display: block;
-    margin: 0 auto;
+    margin: 42px auto 0;
   }
 }
