@@ -1,56 +1,45 @@
-class authAPI {
-  constructor(baseURL) {
-    this._baseURL = baseURL;
-  }
+export const BASE_URL = 'https://auth.nomoreparties.co';
 
-  _handleResponse(res) {
-    if (!res.ok) {
-      return Promise.reject(`Error: ${res.status}`);
+export const register = (email, password) => {
+  return fetch(`${BASE_URL}/signup`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({email, password})
+  })
+    .then((response) => {
+      return response.json();
+    })
+};
+
+export const authorize = (email, password) => {
+  return fetch(`${BASE_URL}/signin`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email, password })
+  })
+    .then((response => response.json()))
+    .then(res => {
+      if (res.token) {
+          localStorage.setItem('jwt', res.token);
+          return res;
+      }
+    })
+};
+
+export const getContent = (token) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
     }
-    return res.json();
-  }
-
-  register = (email, password) => {
-    return fetch(`${this._baseURL}/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    }).then(this._handleResponse);
-  };
-
-  authorize = (email, password) => {
-    return fetch(`${this._baseURL}/signin`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    }).then(this._handleResponse);
-  };
-
-  checkToken = (token) => {
-    return fetch(`${this._baseURL}/users/me`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then(this._handleResponse)
-    .then((data) => {
-      localStorage.setItem('token', data.token);
-    })
-  };
+  })
+    .then(res => res.json())
 }
-
-const authApi = new authAPI("https://auth.nomoreparties.co");
-
-export default authApi;

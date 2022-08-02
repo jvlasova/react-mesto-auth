@@ -9,7 +9,7 @@ import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
 import InfoTooltip from './InfoTooltip';
 import Api from '../utils/Api';
-import AuthApi from '../utils/AuthApi';
+import * as AuthApi from '../utils/AuthApi';
 import ProtectedRoute from './ProtectedRouter';
 import Register from './Register';
 import Login from './Login';
@@ -66,6 +66,23 @@ function App() {
     setSelectedCard({name: '', link: ''});
   } 
 
+  const auth = async (jwt) => {
+    const content = await AuthApi.getContent(jwt).then(() => {
+      if (email) {
+        setLoggedIn(true);
+        setEmail(email);
+      }
+    })
+    return content;
+  }
+
+  React.useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      auth(jwt);
+    }
+  }, [loggedIn]);
+
   React.useEffect(() => {
     if (loggedIn) {
       navigate('/');
@@ -102,6 +119,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        console.log(email, password);
       })
   }
 
@@ -173,7 +191,11 @@ function App() {
             <Routes>
               <Route 
                 path="/sign-in" 
-                element={<Login onLogin={handleLogin} />}
+                element={
+                  <>
+                <Login onLogin={handleLogin} />
+                </>
+              }
               />
               <Route
                 path="/sign-up" 

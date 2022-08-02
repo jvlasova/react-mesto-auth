@@ -14,9 +14,9 @@ function Register({ onRegister }) {
     setPassword(evt.target.value);
   }
 
-  function handleSubmit(evt) {
+  const handleSubmit= (evt) => {
     evt.preventDefault();
-    onRegister(email, password);
+    onRegister({email, password});
   }
 
   return (
@@ -25,7 +25,7 @@ function Register({ onRegister }) {
       <div className="auth__container">
         <form name="form" onSubmit={handleSubmit}>
           <h2 className="auth__title">Регистрация</h2>
-          <input className="auth__input" name="login" type="email" placeholder="Email" value={email} onChange={ handleSetEmail } required />
+          <input className="auth__input" name="email" type="email" placeholder="Email" value={email} onChange={ handleSetEmail } required />
           <input className="auth__input" name="password" type="password" placeholder="Пароль" value={password} onChange={ handleSetPassword } required />
           <button className="auth__register-button" type="submit">Зарегистрироваться</button>
           <p className="auth__text">Уже зарегистрированы? <Link to='/sign-in' className="auth__text">Войти</Link></p>
