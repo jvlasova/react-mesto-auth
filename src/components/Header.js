@@ -1,20 +1,32 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import logo from '../images/logo.svg';
 
-function Header ({ email , buttonText }) {
-  const navigate = useNavigate();
-  function signOut(){
-    localStorage.removeItem('jwt');
-    navigate('/sign-in');
-  }
+function Header ({ email, handleSignOut }) {
+  
   return (
     <header className="header">
       <img className="header__logo" src={logo} alt="Логотип Место" />
+      <Switch>
+      <Route exact path="/">
         <div className="header__user">
           <p className="header__email">{email}</p>
-          <button className="header__button" onClick={signOut}>{buttonText}</button>
+          <button className="header__button" onClick={handleSignOut}>
+            Выйти
+          </button> 
         </div>
+      </Route>
+      <Route path="/sign-up">
+        <Link className="header__link" to="/sign-in">
+          Войти
+        </Link>
+      </Route>
+      <Route path="/sign-in">
+        <Link className="header__link" to="/sign-up">
+          Регистрация
+        </Link>
+      </Route>
+      </Switch>
     </header>
   );
 }

@@ -1,9 +1,17 @@
 import React from 'react';
 
-function ImagePopup ({ card, onClose, onCloseOverlay }) {
-  
+function ImagePopup ({ card, onClose }) {
+
+  const onCloseOverlay = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  }
+
   return (
-    <div className={`popup popup_full ${card.link && 'popup_opened'}`} onClick = {onCloseOverlay}>
+    <div className={`popup popup_full ${card.link && 'popup_opened'}`} 
+      onClick={onCloseOverlay}
+    >
       <div className="popup__container-image">
         <button type="button" aria-label="Закрыть" className="popup__close-button" onClick={onClose}></button>
         <img 
