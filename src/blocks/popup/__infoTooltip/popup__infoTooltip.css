@@ -1,8 +1,6 @@
 .popup__infoTooltip {
   display: flex;
   margin: 60px auto 32px;
-  background-image: url('../../../images/success.svg');
-  background-image: url('../../../images/fail.svg');
 }
 
 @media screen and (max-width: 767px) {
