@@ -118,7 +118,7 @@ function App() {
 
   React.useEffect(() => {
     if (loggedIn) {
-      history.push("/");
+      history.push("/react-mesto-auth");
     }
   }, [loggedIn, history]);
 
@@ -129,7 +129,7 @@ function App() {
           localStorage.setItem("jwt", res.token);
           setEmail(values.login);
           setLoggedIn(true);
-          history.push("/");
+          history.push("/react-mesto-auth");
         }
       })
       .catch((err) => {
@@ -145,7 +145,7 @@ function App() {
         if (res) {
           setIsStatusRegister(true);
           handleInfoTooltipOpen();
-          history.push("/");
+          history.push("/react-mesto-auth");
         }
       })
       .catch((err) => {
@@ -157,7 +157,7 @@ function App() {
 
   function handleSignOut() {
     localStorage.removeItem("jwt");
-    history.push("/sign-in");
+    history.push("/react-mesto-auth/sign-in");
   }
 
   function handleCardLike(card) {
@@ -245,7 +245,7 @@ function App() {
         <div className="page">
           <ProtectedRoute
             exact
-            path="/"
+            path="/react-mesto-auth"
             loggedIn={loggedIn}
             component={Header}
             email={email}
@@ -254,7 +254,7 @@ function App() {
           <Switch>
             <ProtectedRoute
               exact
-              path="/"
+              path="/react-mesto-auth"
               loggedIn={loggedIn}
               component={Main}
               cards={currentCards}
@@ -265,16 +265,16 @@ function App() {
               onCardClick={handleCardSelected}
               onCardLike={handleCardLike}
             />
-            <Route path="/sign-in">
+            <Route path="/react-mesto-auth/sign-in">
               <Login onLogin={handleLogin} />
             </Route>
-            <Route path="/sign-up">
+            <Route path="/react-mesto-auth/sign-up">
               <Register onRegister={handleRegister} />
             </Route>
           </Switch>
           <ProtectedRoute
             exact
-            path="/"
+            path="/react-mesto-auth"
             loggedIn={loggedIn}
             component={Footer}
           />

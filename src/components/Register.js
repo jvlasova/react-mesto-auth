@@ -41,7 +41,7 @@ function Register({ onRegister }) {
       </Form>
       <p className="auth__text">
         Уже зарегистрированы?{" "}
-        <Link to="/sign-in" className="auth__text">
+        <Link to="/react-mesto-auth/sign-in" className="auth__text">
           Войти
         </Link>
       </p>

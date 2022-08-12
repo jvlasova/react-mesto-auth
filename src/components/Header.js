@@ -7,7 +7,7 @@ function Header({ email, handleSignOut }) {
     <header className="header">
       <img className="header__logo" src={logo} alt="Логотип Место" />
       <Switch>
-        <Route exact path="/">
+        <Route exact path="/react-mesto-auth">
           <div className="header__user">
             <p className="header__email">{email}</p>
             <button className="header__button" onClick={handleSignOut}>
@@ -15,13 +15,13 @@ function Header({ email, handleSignOut }) {
             </button>
           </div>
         </Route>
-        <Route path="/sign-up">
-          <Link className="header__link" to="/sign-in">
+        <Route path="/react-mesto-auth/sign-up">
+          <Link className="header__link" to="/react-mesto-auth/sign-in">
             Войти
           </Link>
         </Route>
-        <Route path="/sign-in">
-          <Link className="header__link" to="/sign-up">
+        <Route path="/react-mesto-auth/sign-in">
+          <Link className="header__link" to="/react-mesto-auth/sign-up">
             Регистрация
           </Link>
         </Route>
