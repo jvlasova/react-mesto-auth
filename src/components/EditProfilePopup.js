@@ -3,13 +3,7 @@ import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { useForm } from "../hooks/useForm";
 
-function EditProfilePopup({
-  isOpen,
-  onClose,
-  onCloseOverlay,
-  onUpdateUser,
-  buttonText,
-}) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
   const currentUser = React.useContext(CurrentUserContext);
   const { values, handleChange, setValues } = useForm({
     name: "",
@@ -36,11 +30,12 @@ function EditProfilePopup({
     <PopupWithForm
       name="edit-profile"
       title="Редактировать профиль"
-      buttonText={buttonText}
+      buttonText="Сохранить"
+      buttonTextSubmit="Сохранение..."
       isOpen={isOpen}
       onClose={onClose}
-      onCloseOverlay={onCloseOverlay}
       onSubmit={handleSubmit}
+      isLoading={isLoading}
     >
       <input
         type="text"

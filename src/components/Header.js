@@ -6,7 +6,6 @@ function Header({ email, handleSignOut }) {
   return (
     <header className="header">
       <img className="header__logo" src={logo} alt="Логотип Место" />
-      {/* расширение Prettier все равно оставил <Switch> на этом же месте */}
       <Switch>
         <Route exact path="/">
           <div className="header__user">

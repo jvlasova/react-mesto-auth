@@ -6,6 +6,7 @@ import Main from "./Main";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import DeletePlacePopup from "./DeletePlacePopup";
 import ImagePopup from "./ImagePopup";
 import InfoTooltip from "./InfoTooltip";
 import Register from "./Register";
@@ -13,7 +14,7 @@ import Login from "./Login";
 import Api from "../utils/Api";
 import * as AuthApi from "../utils/AuthApi";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import { Route, Switch, Redirect, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
@@ -29,9 +30,15 @@ function App() {
     name: "",
     link: "",
   });
+  const [delectedCard, setdelectedCard] = React.useState({
+    name: "",
+    link: "",
+  });
+  const [isDeletePlacePopupOpen, setIsDeletePlacePopupOpen] =
+    React.useState(false);
   const [selectedCardOpen, setSelectedCardOpen] = React.useState(false);
-  const [isInfoTooltip, setIsInfoTooltip] = React.useState(false);
-  //const [isStatusRegister, setIsStatusRegister] = React.useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
+  const [isStatusRegister, setIsStatusRegister] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 
   const history = useHistory();
@@ -55,17 +62,18 @@ function App() {
     }
   }, [loggedIn]);
 
-  function handleLoadingButton() {
-    isLoading ? setIsLoading(true) : setIsLoading(false);
-  }
-
-  function handleInfoTooltipOpen(outcome) {
-    setIsInfoTooltip({ ...isInfoTooltip, isOpen: true, ok: outcome });
-  }
-
   function handleCardSelected(card) {
     setSelectedCard(card);
     setSelectedCardOpen(true);
+  }
+
+  function handleDeletePlaceOpen(card) {
+    setdelectedCard(card);
+    setIsDeletePlacePopupOpen(true);
+  }
+
+  function handleInfoTooltipOpen() {
+    setIsInfoTooltipOpen(true);
   }
 
   function handleUpdateUserOpen() {
@@ -84,7 +92,8 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setIsInfoTooltip(false);
+    setIsDeletePlacePopupOpen(false);
+    setIsInfoTooltipOpen(false);
     setSelectedCard({ name: "", link: "" });
   }
 
@@ -121,11 +130,11 @@ function App() {
           setEmail(values.login);
           setLoggedIn(true);
           history.push("/");
-          handleInfoTooltipOpen(true);
         }
       })
       .catch((err) => {
-        handleInfoTooltipOpen(false);
+        setIsStatusRegister(false);
+        handleInfoTooltipOpen();
         console.log(err);
       });
   }
@@ -134,12 +143,14 @@ function App() {
     AuthApi.register({ values })
       .then((res) => {
         if (res) {
-          handleInfoTooltipOpen(true);
+          setIsStatusRegister(true);
+          handleInfoTooltipOpen();
           history.push("/");
         }
       })
       .catch((err) => {
-        handleInfoTooltipOpen(false);
+        setIsStatusRegister(false);
+        handleInfoTooltipOpen();
         console.log(err);
       });
   }
@@ -164,7 +175,8 @@ function App() {
       });
   }
 
-  function handleCardDelete(card) {
+  function handlePlaceDelete(card) {
+    setIsLoading(true);
     Api.deleteCard(card._id)
       .then(() => {
         setCurrentCards((currentCard) => {
@@ -176,6 +188,9 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -246,8 +261,8 @@ function App() {
               onEditProfile={handleUpdateUserOpen}
               onEditAvatar={handleUpdateAvatarOpen}
               onAddPlace={handleAddPlaceSubmitOpen}
+              onCardDelete={handleDeletePlaceOpen}
               onCardClick={handleCardSelected}
-              onCardDelete={handleCardDelete}
               onCardLike={handleCardLike}
             />
             <Route path="/sign-in">
@@ -255,9 +270,6 @@ function App() {
             </Route>
             <Route path="/sign-up">
               <Register onRegister={handleRegister} />
-            </Route>
-            <Route>
-              {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
             </Route>
           </Switch>
           <ProtectedRoute
@@ -270,29 +282,38 @@ function App() {
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
-            handleLoadingButton={handleLoadingButton}
-            buttonText={isLoading ? "Сохранение..." : "Сохранить"}
+            isLoading={isLoading}
           />
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
-            handleLoadingButton={handleLoadingButton}
-            buttonText={isLoading ? "Сохранение..." : "Сохранить"}
+            isLoading={isLoading}
           />
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
             onUpdatePlace={handleAddPlaceSubmit}
-            handleLoadingButton={handleLoadingButton}
-            buttonText={isLoading ? "Сохранение..." : "Создать"}
+            isLoading={isLoading}
+          />
+          <DeletePlacePopup
+            card={delectedCard}
+            isOpen={isDeletePlacePopupOpen}
+            onClose={closeAllPopups}
+            onDelete={handlePlaceDelete}
+            isLoading={isLoading}
           />
           <ImagePopup
             card={selectedCard}
             isOpen={selectedCardOpen}
             onClose={closeAllPopups}
           />
-          <InfoTooltip outcome={isInfoTooltip} onClose={closeAllPopups} />
+          <InfoTooltip
+            isOpen={isInfoTooltipOpen}
+            onClose={closeAllPopups}
+            handleInfoTooltipOpen={handleInfoTooltipOpen}
+            isStatusRegister={isStatusRegister}
+          />
         </div>
       </div>
     </CurrentUserContext.Provider>

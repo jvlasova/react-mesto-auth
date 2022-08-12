@@ -2,13 +2,7 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import { useForm } from "../hooks/useForm";
 
-function AddPlacePopup({
-  isOpen,
-  onClose,
-  onCloseOverlay,
-  onUpdatePlace,
-  buttonText,
-}) {
+function AddPlacePopup({ isOpen, onClose, onUpdatePlace, isLoading }) {
   const { values, handleChange, setValues } = useForm({});
 
   React.useEffect(() => {
@@ -28,11 +22,12 @@ function AddPlacePopup({
     <PopupWithForm
       name="add-card"
       title="Новое место"
-      buttonText={buttonText}
+      buttonText="Создать"
+      buttonTextSubmit="Сохранение..."
       isOpen={isOpen}
       onClose={onClose}
-      onCloseOverlay={onCloseOverlay}
       onSubmit={handleSubmit}
+      isLoading={isLoading}
     >
       <input
         type="text"
