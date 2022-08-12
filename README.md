@@ -5,6 +5,6 @@
 
 Планирую довести его до совершенства помощью ревьюиров, кураторов и коллег!
 
-Ссылка на проект: https://jvlasova.github.io/react-mesto-auth
+Ссылка на проект: https://jvlasova.github.io/react-mesto-auth/index.html
 
 Всем добра!
