@@ -17,12 +17,10 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
     <PopupWithForm
       name="edit-avatar"
       title="Обновить аватар"
-      buttonText="Сохранить"
-      buttonTextSubmit="Сохранение..."
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isLoading={isLoading}
+      isLoading={isLoading ? "Сохранение..." : "Сохранить"}
     >
       <input
         type="url"

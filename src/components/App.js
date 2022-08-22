@@ -94,7 +94,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsDeletePlacePopupOpen(false);
     setIsInfoTooltipOpen(false);
-    setSelectedCard({ name: "", link: "" });
+    setSelectedCardOpen(false);
   }
 
   function handleChecktoken() {

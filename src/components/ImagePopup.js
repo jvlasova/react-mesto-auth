@@ -1,16 +1,13 @@
 import React from "react";
+import Popup from "./Popup";
 
-function ImagePopup({ card, onClose }) {
-  const onCloseOverlay = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
-
+function ImagePopup({ card, onClose, isOpen }) {
   return (
-    <div
-      className={`popup popup_full ${card.link && "popup_opened"}`}
-      onClick={onCloseOverlay}
+    <Popup
+      name="image_full"
+      isOpen={isOpen}
+      onClose={onClose}
+      image_full="popup_full"
     >
       <div className="popup__container-image">
         <button
@@ -26,7 +23,7 @@ function ImagePopup({ card, onClose }) {
         />
         <p className="popup__image-title">{card.name}</p>
       </div>
-    </div>
+    </Popup>
   );
 }
 

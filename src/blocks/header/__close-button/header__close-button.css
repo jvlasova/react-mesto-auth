@@ -1,0 +1,30 @@
+.header__close-button {
+  display: flex;
+}
+
+@media screen and (max-width: 480px) {
+  .header__close-button {
+    display: none;
+    width: 32px;
+    height: 32px;
+    border-style: none;
+    background: none;
+    background-image: url('../../../images/close-button.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: opacity .4s ease-in-out;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.header__close-button:hover {
+  cursor: pointer;
+  opacity: .6;
+}
+
+@media screen and (max-width: 480px) {
+  .header__close-button {
+    transform: scale(0.63);
+  }
+}
