@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react-mesto-auth/static/css/main.72ea71c4.css",
-    "main.js": "/react-mesto-auth/static/js/main.c5b7bd91.js",
+    "main.css": "/react-mesto-auth/static/css/main.c099174f.css",
+    "main.js": "/react-mesto-auth/static/js/main.e7fa5f50.js",
     "static/js/787.0fc3b920.chunk.js": "/react-mesto-auth/static/js/787.0fc3b920.chunk.js",
     "static/media/Inter-Medium.woff?v=3.19": "/react-mesto-auth/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
     "static/media/Inter-Black.woff?v=3.19": "/react-mesto-auth/static/media/Inter-Black.c6938660eec019fefd68.woff",
@@ -16,16 +16,17 @@
     "static/media/trash.svg": "/react-mesto-auth/static/media/trash.823b0cf1b0b7e9cb7cad.svg",
     "static/media/success.svg": "/react-mesto-auth/static/media/success.1b6082f862eac35e2514460237d96ecc.svg",
     "static/media/black_heart.svg": "/react-mesto-auth/static/media/black_heart.fe17a515669479b1e649.svg",
+    "static/media/menu.svg": "/react-mesto-auth/static/media/menu.a46d5c1c53c02d60fc80.svg",
     "static/media/edit-button.svg": "/react-mesto-auth/static/media/edit-button.8667ac4a523e8fc42e59.svg",
     "static/media/avatar-button.svg": "/react-mesto-auth/static/media/avatar-button.a086f758840ae814ecde.svg",
     "static/media/close-button.svg": "/react-mesto-auth/static/media/close-button.2ceb783afbab75916ddc.svg",
     "static/media/add-button.svg": "/react-mesto-auth/static/media/add-button.d86bb2edc2f6eadb96b7.svg",
-    "main.72ea71c4.css.map": "/react-mesto-auth/static/css/main.72ea71c4.css.map",
-    "main.c5b7bd91.js.map": "/react-mesto-auth/static/js/main.c5b7bd91.js.map",
+    "main.c099174f.css.map": "/react-mesto-auth/static/css/main.c099174f.css.map",
+    "main.e7fa5f50.js.map": "/react-mesto-auth/static/js/main.e7fa5f50.js.map",
     "787.0fc3b920.chunk.js.map": "/react-mesto-auth/static/js/787.0fc3b920.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.72ea71c4.css",
-    "static/js/main.c5b7bd91.js"
+    "static/css/main.c099174f.css",
+    "static/js/main.e7fa5f50.js"
   ]
 }
