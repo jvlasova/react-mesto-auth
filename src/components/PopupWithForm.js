@@ -9,6 +9,7 @@ function PopupWithForm({
   onClose,
   onSubmit,
   isLoading,
+  isDisabled = false,
 }) {
   return (
     <Popup name={name} isOpen={isOpen} onClose={onClose}>
@@ -25,7 +26,10 @@ function PopupWithForm({
           <button
             type="submit"
             aria-label="Сохранить"
-            className="popup__save-button"
+            className={`popup__save-button ${
+              isDisabled && "popup__save-button_disabled"
+            }`}
+            disabled={isDisabled}
           >
             {isLoading}
           </button>

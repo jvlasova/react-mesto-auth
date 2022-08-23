@@ -1,9 +1,10 @@
+import React from "react";
 import Header from "./Header";
 import Form from "./Form";
-import { useForm } from "../hooks/useForm";
+import { useFormWithValidation } from "../hooks/useForm";
 
 function Login({ onLogin }) {
-  const { values, handleChange } = useForm({ login: "", password: "" });
+  const { values, handleChange, resetFrom, errors } = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -12,6 +13,12 @@ function Login({ onLogin }) {
     }
     onLogin({ values });
   }
+
+  React.useEffect(() => {
+    if (!onLogin) {
+      resetFrom(onLogin, {}, true);
+    }
+  }, [onLogin, resetFrom]);
 
   return (
     <div className="auth">
@@ -22,19 +29,25 @@ function Login({ onLogin }) {
           name="login"
           type="text"
           placeholder="Email"
-          value={values.login}
+          value={values.login || ""}
           onChange={handleChange}
           required
         />
+        <span className="login-error popup__text-error">
+          {errors.login || ""}
+        </span>
         <input
           className="auth__input"
           name="password"
           type="password"
           placeholder="Пароль"
-          value={values.password}
+          value={values.password || ""}
           onChange={handleChange}
           required
         />
+        <span className="password-error popup__text-error">
+          {errors.password || ""}
+        </span>
       </Form>
     </div>
   );

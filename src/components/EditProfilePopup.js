@@ -1,29 +1,22 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import { useForm } from "../hooks/useForm";
+import { useFormWithValidation } from "../hooks/useForm";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
   const currentUser = React.useContext(CurrentUserContext);
-  const { values, handleChange, setValues } = useForm({
-    name: "",
-    description: "",
-  });
+  const { values, handleChange, resetFrom, errors, isValid } =
+    useFormWithValidation();
 
   React.useEffect(() => {
-    setValues({
-      name: currentUser.name,
-      description: currentUser.about,
-    });
-  }, [currentUser, isOpen, setValues]);
+    if (currentUser) {
+      resetFrom(currentUser, {}, true);
+    }
+  }, [currentUser, isOpen, resetFrom]);
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    onUpdateUser({
-      name: values.name,
-      about: values.description,
-    });
+    onUpdateUser(values);
   }
 
   return (
@@ -34,6 +27,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
       onClose={onClose}
       onSubmit={handleSubmit}
       isLoading={isLoading ? "Сохранение..." : "Сохранить"}
+      isDisabled={!isValid || isLoading}
     >
       <input
         type="text"
@@ -46,19 +40,21 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
         maxLength="40"
         required
       />
-      <span className="name-error popup__text-error"></span>
+      <span className="name-error popup__text-error">{errors.name || ""}</span>
       <input
         type="text"
-        id="description"
-        name="description"
+        id="about"
+        name="about"
         className="popup__input popup__input_type_other"
-        value={values.description || ""}
+        value={values.about || ""}
         onChange={handleChange}
         minLength="2"
         maxLength="200"
         required
       />
-      <span className="description-error popup__text-error"></span>
+      <span className="about-error popup__text-error">
+        {errors.about || ""}
+      </span>
     </PopupWithForm>
   );
 }
